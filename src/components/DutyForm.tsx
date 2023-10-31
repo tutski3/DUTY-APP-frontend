@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
+import { Form, Input, Button } from 'antd';
+
+const { Item } = Form;
 
 const DutyForm: React.FC = () => {
   const [name, setName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const mutation = `
       mutation CreateDuty($name: String!) {
         addDuty(name: $name) {
@@ -15,11 +18,11 @@ const DutyForm: React.FC = () => {
         }
       }
     `;
-    
+
     const variables = {
       name: name,
     };
-    
+
     axios({
       url: 'http://localhost:4000',
       method: 'post',
@@ -38,17 +41,24 @@ const DutyForm: React.FC = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Add or update duty"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <Form onFinish={handleSubmit}>
+        <Item>
+          <Input
+            type="text"
+            placeholder="Add or update duty"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Item>
+        <Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Item>
+      </Form>
     </div>
   );
 };
+
 
 export default DutyForm;
