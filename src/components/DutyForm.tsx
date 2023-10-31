@@ -4,6 +4,14 @@ import { Form, Input, Button } from 'antd';
 
 const { Item } = Form;
 
+const centerStyles: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column' as 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+};
+
 const DutyForm: React.FC = () => {
   const [name, setName] = useState('');
 
@@ -40,23 +48,24 @@ const DutyForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <Form onFinish={handleSubmit}>
-        <Item>
-          <Input
-            type="text"
-            placeholder="Add or update duty"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Item>
-        <Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Item>
-      </Form>
-    </div>
+    <div style={centerStyles}>
+    <Form onFinish={handleSubmit}>
+      <Item>
+        <Input
+          type="text"
+          placeholder="Add or update duty"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          style={{ width: '200px' }}
+        />
+      </Item>
+      <Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Item>
+    </Form>
+  </div>
   );
 };
 
